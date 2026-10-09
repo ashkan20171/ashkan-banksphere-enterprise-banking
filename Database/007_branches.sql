@@ -1,0 +1,16 @@
+USE AshkanBankSphere;
+GO
+IF OBJECT_ID(N'dbo.Branches', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.Branches (
+        Id INT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Branches PRIMARY KEY,
+        BranchCode NVARCHAR(20) NOT NULL CONSTRAINT UQ_Branches_BranchCode UNIQUE,
+        NameFa NVARCHAR(150) NOT NULL,
+        NameEn NVARCHAR(150) NOT NULL CONSTRAINT DF_Branches_NameEn DEFAULT N'',
+        City NVARCHAR(100) NOT NULL CONSTRAINT DF_Branches_City DEFAULT N'',
+        Address NVARCHAR(300) NOT NULL CONSTRAINT DF_Branches_Address DEFAULT N'',
+        IsActive BIT NOT NULL CONSTRAINT DF_Branches_IsActive DEFAULT (1),
+        CreatedAt DATETIME2 NOT NULL CONSTRAINT DF_Branches_CreatedAt DEFAULT SYSUTCDATETIME()
+    );
+END;
+GO
